@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD_FILE: "/run/secrets/postgres-passwd"
+    secrets:
+      - postgres-passwd
+    networks:
+      - backend-network
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "s@harro.ws"
+      PGADMIN_DEFAULT_PASSWORD_FILE: "/run/secrets/pgadmin-passwd"
+    secrets:
+      - pgadmin-passwd
+    networks:
+      - backend-network
+    ports:
+      - target: 80
+        published: 10080
+        mode: host
+secrets:
+  postgres-passwd:
+    file: ./postgres-passwd.txt
+  pgadmin-passwd:
+    file: ./pgadmin-passwd.txt
+networks:
+  backend-network:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 192.168.0.0/24
