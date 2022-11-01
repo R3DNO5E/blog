@@ -10,8 +10,8 @@ export class Page extends React.Component<{ title: string, content: React.Compon
                 <Head>
                     <title>{this.props.title + " - " + Config.siteName}</title>
                 </Head>
-                <header>
-                    <h1>{this.props.title}</h1>
+                <header className="">
+                    <h1 className="text-3xl font-bold underline">{this.props.title}</h1>
                     <h2>{Config.siteName}</h2>
                 </header>
                 <main>
